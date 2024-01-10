@@ -38,6 +38,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
   left.addEventListener('click', slideLeft);
   right.addEventListener('click', slideRight);
+
+  window.setInterval(slideRight, 5000);
 });
 
 function slideTo (index) {
