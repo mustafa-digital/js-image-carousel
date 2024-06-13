@@ -37,10 +37,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
   const left = document.querySelector('.left-arrow');
   const right = document.querySelector('.right-arrow');
 
-  left.addEventListener('click', slideLeft);
-  right.addEventListener('click', slideRight);
+  left.addEventListener('click', LeftArrowEvent);
+  right.addEventListener('click', RightArrowEvent);
 
-  resetSliderInterval();
+  timerId = window.setInterval(slideRight, 5000);
 });
 
 function slideTo (index) {
@@ -52,14 +52,22 @@ function slideTo (index) {
   updateDots(previousImage);
 }
 
-function slideLeft () {
+function LeftArrowEvent () {
   resetSliderInterval();
+  slideLeft();
+}
+
+function slideLeft () {
   if (currentImage === 0) slideTo(LAST_IMAGE);
   else slideTo(currentImage - 1);
 }
 
-function slideRight () {
+function RightArrowEvent () {
   resetSliderInterval();
+  slideRight();
+}
+
+function slideRight () {
   if (currentImage === LAST_IMAGE) slideTo(FIRST_IMAGE);
   else slideTo(currentImage + 1);
 }
