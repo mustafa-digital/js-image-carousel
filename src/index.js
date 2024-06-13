@@ -11,6 +11,7 @@ let currentImage = 0;
 let dots;
 let LAST_IMAGE;
 const FIRST_IMAGE = 0;
+let timerId;
 
 function loadImages (images, imageSources) {
   let i = 0;
@@ -39,7 +40,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
   left.addEventListener('click', slideLeft);
   right.addEventListener('click', slideRight);
 
-  window.setInterval(slideRight, 5000);
+  resetSliderInterval();
 });
 
 function slideTo (index) {
@@ -52,12 +53,13 @@ function slideTo (index) {
 }
 
 function slideLeft () {
+  resetSliderInterval();
   if (currentImage === 0) slideTo(LAST_IMAGE);
   else slideTo(currentImage - 1);
-  console.log({ currentImage });
 }
 
 function slideRight () {
+  resetSliderInterval();
   if (currentImage === LAST_IMAGE) slideTo(FIRST_IMAGE);
   else slideTo(currentImage + 1);
 }
@@ -77,6 +79,7 @@ function createNavDots (images) {
 }
 
 function dotClickEvent (event) {
+  resetSliderInterval();
   const index = Number(event.target.dataset.index);
   slideTo(index);
 }
@@ -84,4 +87,9 @@ function dotClickEvent (event) {
 function updateDots (previousImage) {
   dots[currentImage].classList.toggle('selected');
   dots[previousImage].classList.toggle('selected');
+}
+
+function resetSliderInterval () {
+  clearInterval(timerId);
+  timerId = window.setInterval(slideRight, 5000);
 }
